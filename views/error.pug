@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  section.error
+    h1= err.message
+    h2= err.status
+    button.home-nav(type='button')
+      a.button-primary-small(href="/") Back to Home
+      
+  div.stack-holder
+    div.stack-trace= err.stack 

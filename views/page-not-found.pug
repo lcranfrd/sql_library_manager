@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  section.error
+    h1 #{err.message}:<br>#{originalUrl}
+    h2= err.status
+    button.home-nav(type='button')
+      a.button-primary-small(href="/") Back to Home
+  div.stack-holder
+    div.stack-trace= err.stack 
+//- block content
+//-   h1 Page Not Found
+//-   p #{err.message}:<br>#{originalUrl}
+//-   br
+//-   p: a.button(href='all_books.html') Home
+

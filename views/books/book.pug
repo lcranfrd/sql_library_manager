@@ -1,0 +1,19 @@
+extends ../layout 
+
+block content 
+  h1= title
+  p: a.button(href='/books') See All Books
+  table
+    thead
+      tr
+        each val, key in book
+          if key !== 'id'
+           th=  key.charAt(0).toUpperCase() + key.slice(1)
+    tbody 
+      tr 
+        each val, key in book
+          if key === 'title'
+            td
+              a(href='/show/' + book.id)= val
+          if key !== 'id' && key !== 'title'
+            td= val
