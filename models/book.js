@@ -1,5 +1,7 @@
 'use strict';
 const {Model} = require('sequelize');
+const dayjs = require('dayjs');
+
 module.exports = (sequelize, DataTypes) => {
   class Book extends Model {
     /**
@@ -7,10 +9,20 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
-      // define association here
+    publishedAt() {
+      const date = dayjs(this.createdAt).format('MMMM D, YYYY, h:mma');
+      return date;
     }
+    alteredAt() {
+      const date = dayjs(this.updatedAt).format('MMMM D, YYYY, h:mma');
+      return date;
+    }
+
+    // static associate(models) {
+
+    // }
   };
+
   Book.init({
     title: {
       type: DataTypes.STRING,
