@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull:{msg: "'title' cannot be null"},
-        notEmpty: {msg: 'You Forgot the Title!'}
+        notEmpty: {msg: 'You Forgot the Title: You Really Need It!'}
       }
     },
     author: {
@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: {msg: "'author' cannot be null"},
-        notEmpty: {msg: 'You Forgot the Author\s Name!'}
+        notEmpty: {msg: 'You Forgot the Author\s Name: You Need to Enter It!'}
       }
     },
     genre: {

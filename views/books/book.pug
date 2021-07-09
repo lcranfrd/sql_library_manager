@@ -2,7 +2,6 @@ extends ../layout
 
 block content 
   h1= title
-  p: a.button(href='/books') See All Books
   table
     thead
       tr
@@ -13,11 +12,12 @@ block content
       tr 
         each val, key in book
           if key === 'title'
-            td
-              a(href='/show/' + book.id)= val
+            td: a(href='/show/' + book.id)= val
           if key !== 'id' && key !== 'title'
             td= val
           //- if key === 'createdAt'
           //-   td= book.publishedAt()
           //- if key === 'updatedAt'
           //-   td= book.alteredAt()
+  p: a.button(href='/books') See All Books
+  p: a.button(href='/books/edit/' + book.id) Edit This Book
