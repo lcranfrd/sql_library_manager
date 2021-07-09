@@ -6,6 +6,7 @@ const dayjs = require('dayjs');
 
 module.exports = (sequelize, DataTypes) => {
   class Book extends Model {
+    //Extended Instance Methods*****
     publishedAt() {
       const date = dayjs(this.createdAt).format('MMMM D, YYYY, h:mma');
       return date;
