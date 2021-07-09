@@ -14,7 +14,7 @@ function asyncHandler(db) {
 }
 
 // GET All BOOKS
-router.get('/', asyncHandler(async(req, res) => {
+router.get('/', asyncHandler(async (req, res) => {
   console.log('/books Route Called');
   const books = await Book.findAll({
     attributes: ['id', 'title', 'author', 'genre', 'year']
@@ -99,7 +99,7 @@ router.get('/delete/:bookId', asyncHandler(async (req, res, next) => {
 
 //DELETE THE BOOK
 
-router.post('/:bookId/delete', asyncHandler(async (req, res, next) => {
+router.post('/delete/:bookId', asyncHandler(async (req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   (book)
     ? await book.destroy()

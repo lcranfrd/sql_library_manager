@@ -7,7 +7,7 @@ const logger = require('morgan');
 const { error404, internalError } = require('./routes/errors');
 const routes = require('./routes/index');
 const books = require('./routes/books');
-const sequelize = require('./models/index.js').sequelize;
+const {sequelize} = require('./models/index.js') //.sequelize;
 
 const app = express();
 
