@@ -1,5 +1,4 @@
 var express = require('express');
-// var router = express.Router();
 const {Book} = require('../models');
 
 function asyncHandler(db) {
@@ -110,6 +109,6 @@ books = {
       : next()
     res.redirect('/books');
   })
-
 }
+
 module.exports = {books};
