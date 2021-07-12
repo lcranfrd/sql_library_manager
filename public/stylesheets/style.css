@@ -97,13 +97,17 @@ input[type=text] {
 }
 
 .pagination {
-  margin: 30px 0 60px;
+  margin: 40px 0 20px;
   text-align: left;
 }
 
-.pagination li {
+.link-list {
+  margin: 10px 10px
+}
+
+.link-list li {
   display: inline;
-  padding: 0 3px;
+  margin: 0 8px
 }
 
 .pagination li .button {
@@ -113,14 +117,19 @@ input[type=text] {
 	padding: 0.5em 0.85em;
 	background: #019875;
   border: none;
-  border-radius: 3px;
+  border-radius: 10px;
   text-decoration: none;
 	color: #fff;
-	box-shadow: 0 1px 8px 0 rgba(22, 42, 90, 0.05);
+	box-shadow: 0 1px 8px 0 rgba(100, 138, 226, 0.657);
 	transition: 0.4s;
 }
 
-.pagination li.active, .pagination li:hover {
-  background-color: #1e90ff;
+.pagination li.active a {
+  background: #0198755e;
   color: #fff;
+}
+
+.pagination li:hover a {
+  background: #77fdde;
+  color: #000;
 }

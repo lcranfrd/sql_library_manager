@@ -112,7 +112,7 @@ books = {
     (book)
       ? await book.destroy()
       : next()
-    res.redirect('/books');
+    res.redirect('/');
   })
 }
 
