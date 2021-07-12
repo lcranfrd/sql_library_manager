@@ -1,5 +1,7 @@
 var express = require('express');
 const {Book} = require('../models');
+const book = require('../models/book');
+const {limit} = {limit: 5};
 
 function asyncHandler(db) {
   return async(req, res, next) => {
@@ -17,17 +19,29 @@ books = {
   //GET ALL BOOKS
   list: asyncHandler(async (req, res) => {
     console.log('/books Route Called');
-    const books = await Book.findAll({
-      attributes: ['id', 'title', 'author', 'genre', 'year']
+    console.log(req.params)
+    const offset = (req.params.pageId !== undefined) ? (+req.params.pageId -1) * limit : 0; 
+    console.log('Offset is ' + offset)
+    const books = await Book.findAndCountAll({
+      attributes: ['id', 'title', 'author', 'genre', 'year'],
+      order: [['title', 'ASC']],
+      offset: offset,
+      limit
     });
     (books)
-      ? res.render("books/index", {title: 'Books', books: books.map((v)=> v.toJSON())})
+      ? res.render("books", {
+          title: 'Books',
+          books: books.rows.map((v) => v.toJSON()),
+          count: books.count,
+          limit,
+          offset
+        })
       : next();
   }),
 
   //GET SINGLE BOOK
   book: asyncHandler(async (req, res, next) => {
-    console.log('/:bookId Route Called');
+    console.log('books/:bookId Route Called');
     const book = await Book.findByPk(req.params.bookId);
     (book)
       ? res.render("books/book", {title: book.title, book: book.toJSON()})
@@ -46,7 +60,7 @@ books = {
     let book;
     try {
       book = await Book.create(req.body);
-      res.redirect('/books/' + book.id);
+      res.redirect('book/' + book.id);
     } catch(error) {
       if(error.name === "SequelizeValidationError") {
         book = await Book.build(req.body);
@@ -74,7 +88,7 @@ books = {
       book = await Book.findByPk(req.params.bookId);
       if(book) {
         await book.update(req.body);
-        res.redirect('/books/' + book.id);
+        res.redirect('/book/' + book.id);
       } else {
         next();
       }
@@ -88,15 +102,6 @@ books = {
         throw error;
       }
     }
-  }),
-
-  //GET DELETE FORM
-  deleteForm: asyncHandler(async (req, res, next) => {
-    console.log('GET /delete/:bookId Route Called')
-    const book = await Book.findByPk(req.params.bookId);
-    (book)
-      ? res.render('books/delete', {book, title: 'Delete Book'})
-      : next();
   }),
 
   //POST DESTROY THE BOOK

@@ -1,4 +1,4 @@
-form(action='/books', method='post')
+form(action='/books/new', method='post')
   p
     label(for='title') Title
     input(name='title' type='text' id='title' value=book.title)
@@ -14,4 +14,4 @@ form(action='/books', method='post')
   p
     input(type='submit' value='Create New Book')
   p
-    a.button(href='/books') Cancel
+    a.button(href='/') Cancel

@@ -15,6 +15,13 @@ block content
           each val, key in book
             if key === 'title'
               td
-                a(href='/books/' + book.id)= val
+                a(href='/books/book/' + book.id)= val
             if key !== 'id' && key !== 'title'
               td= val
+  p Showing Books  #{offset + 1} -- #{offset + limit} of #{count}
+  p= offset
+  div.pagination
+    ul.link-list
+      -  for (let val=1; val <= Math.ceil(count/limit); val++) 
+          li(class=(val-1 === offset/limit) ? 'active' : '')
+            a.button(type='button', href='/books/page/' + val)= val
