@@ -89,7 +89,6 @@ const books = {
       }
     } catch (error) {
       if(error.name === 'SequelizeValidationError') {
-        console.log('/update/:id POST Validation Error Called')
         book = await Book.build(req.body);
         book.id = req.params.id;
         res.render('books/update-book', {book, errors: error.errors, title: 'Edit Book'})
