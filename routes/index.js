@@ -7,4 +7,8 @@ router.get('/', (req, res, next) => {
   res.redirect('/books/page/1');
 });
 
+router.get('/books', (req, res, next) => {
+  res.redirect('/');
+});
+
 module.exports = router;

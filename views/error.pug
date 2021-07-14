@@ -1,9 +1,9 @@
 extends layout
 
 block content
-  section.error
+  section.error500
     h1= err.message
-    h2= err.status
+    h2 Error #{err.status}
     button.home-nav(type='button')
       a.button-primary-small(href="/") Back to Home
       

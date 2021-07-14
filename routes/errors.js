@@ -6,7 +6,7 @@
  *========================================================================**/
 
  const error404 = ((req, res) => {
-  const err = new Error('Requested Resource Not Found');
+  const err = new Error('The Resource You Requested Cannot Be Not Found');
   const { originalUrl } = req;
   const classErr = 'error-404';
   err.status = 404;

@@ -1,8 +1,6 @@
-var express = require('express');
 const {Op} = require('sequelize');
 const {Book} = require('../models');
-// const book = require('../models/book');
-const {limit} = {limit: 5};
+const {limit} = {limit: 6};
 
 function asyncHandler(db) {
   return async(req, res, next) => {
@@ -18,7 +16,7 @@ function asyncHandler(db) {
 books = {
 
   //GET ALL BOOKS
-  list: asyncHandler(async (req, res) => {
+  list: asyncHandler(async (req, res, next) => {
     const offset = (req.params.pageId !== undefined) ? (+req.params.pageId -1) * limit : 0; 
     const books = await Book.findAndCountAll({
       attributes: ['id', 'title', 'author', 'genre', 'year'],
@@ -26,7 +24,7 @@ books = {
       offset: offset,
       limit
     });
-    (books)
+    (books.rows.length !== 0)
       ? res.render("books", {
           title: 'Books',
           books: books.rows.map((v) => v.toJSON()),
@@ -61,7 +59,7 @@ books = {
   
   //GET UPDATE BOOK FORM
   updateForm: asyncHandler(async (req, res, next) => {
-    const book = await Book.findByPk(req.params.bookId);
+    const book = await Book.findByPk(req.params.id);
     (book)
       ? res.render('books/update-book', { book, title: 'Edit Book '})
       : next()
@@ -71,7 +69,7 @@ books = {
   update: asyncHandler(async (req, res, next) => {
     let book;
     try {
-      book = await Book.findByPk(req.params.bookId);
+      book = await Book.findByPk(req.params.id);
       if(book) {
         await book.update(req.body);
         res.redirect('/books/page/1');
@@ -80,9 +78,9 @@ books = {
       }
     } catch (error) {
       if(error.name === 'SequelizeValidationError') {
-        console.log('/update/:bookId POST Validation Error Called')
+        console.log('/update/:id POST Validation Error Called')
         book = await Book.build(req.body);
-        book.id = req.params.bookId;
+        book.id = req.params.id;
         res.render('books/update-book', {book, errors: error.errors, title: 'Edit Book'})
       } else {
         throw error;
@@ -92,30 +90,30 @@ books = {
   
   //POST BOOK SEARCH
   searchBooks: asyncHandler(async (req, res, next) => {
+    const searchCased = req.body.search.toLowerCase();
     const {search} = req.body;
-    console.log(Boolean(search))
     const books = await Book.findAndCountAll({
       attributes: ['id', 'title', 'author', 'genre', 'year'],
       where: {
           [Op.or]: [
             {
               title: {
-                [Op.like]: `%${search}%`
+                [Op.like]: `%${searchCased}%`
               }
             },
             {
               author: {
-                [Op.like]: `%${search}%`
+                [Op.like]: `%${searchCased}%`
               }
             },
             {
               genre: {
-                [Op.like]: `%${search}%`
+                [Op.like]: `%${searchCased}%`
               }
             },
             {
               year: {
-                [Op.like]: `%${search}%`
+                [Op.like]: `%${searchCased}%`
               }
             }
         ]
@@ -136,7 +134,7 @@ books = {
 
   //POST DESTROY THE BOOK
   destroyBook: asyncHandler(async (req, res, next) => {
-    const book = await Book.findByPk(req.params.bookId);
+    const book = await Book.findByPk(req.params.id);
     (book)
       ? await book.destroy()
       : next()

@@ -47,4 +47,4 @@ block content
               
     p.search-info Showing Books  #{offset + 1} -- #{offset + books.length} of #{count}
   else 
-    p.search-info Showing #{count} Books Where You Searched for  '#{search}'
+    p.search-info Showing #{count} #{(count === 1)? 'Book' : 'Books'} From Your Search for '#{search}'

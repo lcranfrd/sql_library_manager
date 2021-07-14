@@ -96,6 +96,16 @@ input[type=text] {
   color: rgb(236, 15, 15);
 }
 
+.error404, .error500 {
+  text-align: center;
+  color: rgb(236, 15, 15);
+  padding-bottom: 1em;
+}
+
+.stack-trace {
+  color: #0198759f;
+}
+
 .pagination {
   margin: 40px 0 20px;
   text-align: left;
