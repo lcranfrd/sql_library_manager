@@ -133,3 +133,43 @@ input[type=text] {
   background: #77fdde;
   color: #000;
 }
+
+.no-search {
+  font-weight: bold;
+  color: rgb(236, 15, 15);
+}
+
+.search-info {
+  color: #019875;
+}
+
+.form-search {
+  margin: 20px 0 10px 10px;
+  padding: 10px 0 0 0;
+}
+
+.book-search {
+  display: flex;
+}
+
+.book-search input {
+  border-radius: 4px 0 0 4px;
+  border: 1px solid #019875;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+
+.book-search input::placeholder {
+  color: #929b9e;
+}
+
+.book-search button {
+  cursor: pointer;
+  border-radius: 0 4px 4px 0;
+  border: 1px solid #019875;
+  border-left: none;
+  padding: 0px 5px;
+  font-size: 20px;
+  background-color: #019875;
+  color: #fff;
+}

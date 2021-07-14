@@ -2,31 +2,49 @@ extends ../layout
 
 block content
   h1= title
-  p: a.button(href='/books/newbook') Create New Book
-  table
-    thead
-      tr
-        each val, key in books[0]
-          if key !== 'id'
-            th=  key.charAt(0).toUpperCase() + key.slice(1)
-    tbody 
-      each book in books
-        tr 
-          each val, key in book
-            if key === 'title'
-              td
-                a(href='/books/book/' + book.id)= val
-            if key !== 'id' && key !== 'title'
-              td= val
 
-  div.pagination
-    ul.link-list
-      - for (let val=1; val <= Math.ceil(count/limit); val++) 
-          li(class=(val-1 === offset/limit) ? 'active' : '')
-            //- a.button(type='button', href='/books/page/' + val)= val
-            if val-1 !== offset/limit
-              a.button(type='button', href='/books/page/' + val)= val
-            else
-              a.button(type='button')= val
-            
-  p Showing Books  #{offset + 1} -- #{offset + books.length} of #{count}
+  div 
+    div
+      if !search
+        p: a.button(href='/books/new') Create New Book
+      else
+        p: a.button(href='/') Back to Home
+
+    div 
+      form(name='search', class='form-search', action='/books/search', method='post')
+        label(for='search' class='book-search') Search Books
+          input(name='search', type='text', id='search', autocomplete='off', placeholder='Enter Book Search...')
+          button(type='submit', onClick='if(document.forms["search"]["search"].value === "") return false;') &#x1F50D;
+
+  if count
+    table
+      thead
+        tr
+          each val, key in books[0]
+            if key !== 'id'
+              th=  key.charAt(0).toUpperCase() + key.slice(1)
+      tbody 
+        each book in books
+          tr 
+            each val, key in book
+              if key === 'title'
+                td
+                  a(href='/books/' + book.id)= val
+              if key !== 'id' && key !== 'title'
+                td= val
+  else 
+    p.no-search Your Search Did Not Return Any Results
+
+  if offset !== undefined
+    div.pagination
+      ul.link-list
+        - for (let val=1; val <= Math.ceil(count/limit); val++) 
+            li(class=(val-1 === offset/limit) ? 'active' : '')
+              if val-1 !== offset/limit
+                a.button(href='/books/page/' + val)= val
+              else
+                a.button= val
+              
+    p.search-info Showing Books  #{offset + 1} -- #{offset + books.length} of #{count}
+  else 
+    p.search-info Showing #{count} Books Where You Searched for  '#{search}'

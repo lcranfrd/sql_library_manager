@@ -33,6 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/fontawesome', express.static('node_modules/@fortawesome/fontawesome-free/js'));
 app.use('/', routes);
 app.use('/books', books);
 // app.use(error404);
