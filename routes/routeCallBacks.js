@@ -1,3 +1,14 @@
+/**========================================================================
+ * *                                routeCallBacks.js
+ *   
+ *   Defines object 'books' containing callbacks for the routes defined in
+ *   books.js. Separation of callbacks is a choice made for ease of
+ *   reading.
+ * 
+ *========================================================================**/
+
+'use strict';
+
 const {Op} = require('sequelize');
 const {Book} = require('../models');
 const {limit} = {limit: 6};
@@ -13,7 +24,7 @@ function asyncHandler(db) {
   }
 }
 
-books = {
+const books = {
 
   //GET ALL BOOKS
   list: asyncHandler(async (req, res, next) => {

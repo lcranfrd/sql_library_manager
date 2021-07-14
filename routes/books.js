@@ -1,6 +1,16 @@
+/**========================================================================
+ * *                                books.js
+ * 
+ * Defined routes where the callbacks are separated into './routeCallBacks' 
+ * This was done to easily see the defined routes.  
+ *
+ *========================================================================**/
+
+'use strict';
+
 var express = require('express');
 var router = express.Router();
-const {books} = require('./cruds');
+const {books} = require('./routeCallBacks');
 
 //GET PAGE # OF BOOKS
 router.get('/page/:pageId', books.list)

@@ -1,9 +1,9 @@
 /**========================================================================
  * *                                errors.js
  *   Middleware handler functions for 404 and 500 error conditions
- *   This is for Exceeds Expectations
  * 
  *========================================================================**/
+'use strict';
 
  const error404 = ((req, res) => {
   const err = new Error('The Resource You Requested Cannot Be Not Found');
